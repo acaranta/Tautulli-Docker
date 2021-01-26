@@ -72,6 +72,13 @@ RUN \
 # add local files
 COPY root/ /
 
+# Fetch/install tautuli at build time
+ENV ADVANCED_GIT_BRANCH="master"
+ [ "$ADVANCED_GIT_REPO" ] || 
+ENV ADVANCED_GIT_REPO="https://github.com/Tautulli/Tautulli.git" 
+ENV INSTALL_FOLDER="/app/tautulli" 
+RUN git clone --branch "$ADVANCED_GIT_BRANCH" "$ADVANCED_GIT_REPO" "${INSTALL_FOLDER}"
+
 ENTRYPOINT ["/init"]
 
 # ports and volumes
